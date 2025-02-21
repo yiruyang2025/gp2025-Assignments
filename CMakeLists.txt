@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.5...3.28)
+project(sm_assignments)
+
+include(viewer_proxy/CMakeLists.txt)
+include(assignment1/CMakeLists.txt)

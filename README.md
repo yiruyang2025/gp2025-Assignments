@@ -78,9 +78,13 @@ In the assignment repository, you will find the different assignment directories
 
 Here are the instructions to build with command line tools:
 
-- Create a `build` directory in the assignment directory, e.g.:
+#### Option 1: same build directory for all assignments
+
+This is the recommended way to build the assignments as it can cache the compilation of shared libraries and decrease compilation time.
+
+- Create a `build` directory in the assignments root directory, e.g.:
     ```bash
-    cd assignment1; mkdir build
+    mkdir build
     ```
 - Use CMake to generate the Makefiles needed for compilation inside the `build` directory:
     ```bash
@@ -89,8 +93,37 @@ Here are the instructions to build with command line tools:
 
 - Compile and run the executable, e.g.:
     ```bash
-    make -j && ./assignment1 <some mesh file>
+    make -j assignment1 && ./assignment1 <some mesh file>
     ```
+
+  The directory structure would look like:
+
+```md
+├── assignment1
+├── assignment2
+├── assignment3
+├── build
+│   ├── assignment1
+│   ├── assignment2
+│   └── assignment3
+└── CMakeLists.txt
+```
+
+#### Option 2: different build directory for each assignment.
+
+- Create a build directory inside each assignment directory, and repeat the same commands. The directory structure would look like:
+
+```md
+├── assignment1
+│   └── build
+│       └── assignment1
+├── assignment2
+│   └── build
+│       └── assignment2
+└── assignment3
+    └── build
+        └── assignment3
+```
 
 Alternatively, you may use your favorite IDE that supports CMake.
 
@@ -109,7 +142,6 @@ Building on Windows is not recommended as the environment setup is not optimized
 - Use the following commands to create the `build` directory and set up the Makefile:
 
     ```powershell
-    cd assignment1
     mkdir build
     cd build
     cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
@@ -118,9 +150,10 @@ Building on Windows is not recommended as the environment setup is not optimized
 - Use the following commands to compile and run the executable:
 
     ```powershell
-    nmake
+    nmake assignment1
     .\assignment1.exe <some mesh file>
     ```
+Just like the instructions for Linux/Mac, you can either create a single build directory for all assignments or a separate build directory for each one (see the possible directory structures above).
 
 Alternatively, you may use your favorite IDE that supports CMake.
 
