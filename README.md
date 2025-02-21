@@ -34,7 +34,7 @@ sudo port install cmake.
 On Windows, please refer to [Building Each Assignment (on Windows)](#building-each-assignment-on-windows) for instructions on how to build the assignments.
 
 ### Cloning the Assignment Repository
-Before you are able to clone your private assignment repository, you need to have an active [Github](https://github.com/) account. Then you can **create your own private online repository** by following [this link](https://classroom.github.com/a/thpBve66). 
+Before you are able to clone your private assignment repository, you need to have an active [Github](https://github.com/) account. Then you can **create your own private online repository** by following [this link](https://classroom.github.com/a/qG6HR05v). 
 
 Note that GitHub deprecated the password authentication method for Git. We recommend using a [personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) or [SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh) to authenticate with GitHub when using Git on the command line.
 
