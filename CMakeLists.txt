@@ -3,3 +3,4 @@ project(sm_assignments)
 
 include(viewer_proxy/CMakeLists.txt)
 include(assignment1/CMakeLists.txt)
+include(assignment2/CMakeLists.txt)
