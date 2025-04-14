@@ -40,7 +40,11 @@ ViewerProxy &ViewerProxy::get_instance() {
       return _instance->callback_mouse_down(*_instance, key, modifiers);
     };
     viewer.callback_init = [&](igl::opengl::glfw::Viewer &viewer) {
-      return _instance->callback_init(*_instance);
+      bool res = _instance->callback_init(*_instance);
+      int width_window, height_window;
+      glfwGetWindowSize(viewer.window, &width_window, &height_window);
+      viewer.resize(width_window, height_window);
+      return res;
     };
     viewer.callback_post_resize = [&](igl::opengl::glfw::Viewer &viewer, int w,
                                       int h) {
