@@ -15,5 +15,6 @@ igl_include(imgui)
 
 # Add your project files
 FILE(GLOB SRCFILES src/*.cpp)
+FILE(GLOB SRCFILES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp)
 add_executable(${PROJECT_NAME} ${SRCFILES})
 target_link_libraries(${PROJECT_NAME} igl::core igl::imgui igl::glfw)
