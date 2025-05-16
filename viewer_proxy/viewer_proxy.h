@@ -1,6 +1,7 @@
 #pragma once
 #include <Eigen/Eigen>
 #include <functional>
+#include <iostream>
 
 // Simple proxy around libigl's Viewer to cache the heavy compilation.
 // We try to include all functions from libigl's Viewer
@@ -26,6 +27,7 @@ public:
     /// @param[in] V  #V by 3 list of mesh vertex positions
     /// @param[in] F  #F by 3/4 list of mesh faces (triangles/tets)
     void set_mesh(const Eigen::MatrixXd &V, const Eigen::MatrixXi &F);
+    void set_vertices(const Eigen::MatrixXd &V);
     /// Set the normals of a mesh.
     ///
     /// @param[in] N #V|#F|3#F by 3 list of mesh normals
@@ -57,6 +59,16 @@ public:
     ///
     /// @param[in] UV  #V by 2 list of UV coordinates (indexed by F)
     void set_uv(const Eigen::MatrixXd &UV);
+    void set_uv(const Eigen::MatrixXd &UV, const Eigen::MatrixXi &FUV);
+    void set_texture(
+        const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &R,
+        const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &G,
+        const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &B);
+    void set_texture(
+        const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &R,
+        const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &G,
+        const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &B,
+        const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &A);
     /// Set whether this object is visible
     /// @param[in] value  true iff this object is visible
     /// @param[in] core_id  Index of the core to set (default is 0)
@@ -87,7 +99,10 @@ public:
     Eigen::Vector4f &viewport;
     Eigen::Matrix4f &proj;
     Eigen::Matrix4f &view;
+    bool &is_animating;
+    double &animation_max_fps;
     unsigned int &id;
+    Eigen::Vector4f &background_color;
   };
 
   // Proxy for igl::opengl::glfw::imgui::ImGuiMenu.
@@ -140,8 +155,11 @@ public:
                               int modifiers) { return false; };
   std::function<bool(ViewerProxy &viewer, unsigned int key, int modifiers)>
       callback_mouse_down = [&](ViewerProxy &viewer, unsigned int key,
-                              int modifiers) { return false; };
+                                int modifiers) { return false; };
   std::function<bool(ViewerProxy &)> callback_init = [&](ViewerProxy &) {
+    return false;
+  };
+  std::function<bool(ViewerProxy &)> callback_pre_draw = [&](ViewerProxy &) {
     return false;
   };
   std::function<bool(ViewerProxy &, int, int)> callback_post_resize =

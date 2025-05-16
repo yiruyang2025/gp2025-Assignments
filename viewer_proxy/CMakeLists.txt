@@ -9,6 +9,7 @@ FetchContent_Declare(
 set(LIBIGL_GLFW ON)
 set(LIBIGL_OPENGL ON)
 set(LIBIGL_IMGUI ON)
+set(LIBIGL_STB ON)
 FetchContent_MakeAvailable(libigl)
 
 file(GLOB SRCFILES ${CMAKE_CURRENT_LIST_DIR}/*.cpp)

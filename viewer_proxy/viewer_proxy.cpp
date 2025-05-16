@@ -40,15 +40,14 @@ ViewerProxy &ViewerProxy::get_instance() {
       return _instance->callback_mouse_down(*_instance, key, modifiers);
     };
     viewer.callback_init = [&](igl::opengl::glfw::Viewer &viewer) {
-      bool res = _instance->callback_init(*_instance);
-      int width_window, height_window;
-      glfwGetWindowSize(viewer.window, &width_window, &height_window);
-      viewer.resize(width_window, height_window);
-      return res;
+      return _instance->callback_init(*_instance);
     };
     viewer.callback_post_resize = [&](igl::opengl::glfw::Viewer &viewer, int w,
                                       int h) {
       return _instance->callback_post_resize(*_instance, w, h);
+    };
+    viewer.callback_pre_draw = [&](igl::opengl::glfw::Viewer &viewer) {
+      return _instance->callback_pre_draw(*_instance);
     };
   }
   return *_instance;
@@ -63,6 +62,9 @@ void ViewerProxy::Data::compute_normals() {
 void ViewerProxy::Data::set_mesh(const Eigen::MatrixXd &V,
                                  const Eigen::MatrixXi &F) {
   CAST_DATA(_igl_viewer_data)->set_mesh(V, F);
+}
+void ViewerProxy::Data::set_vertices(const Eigen::MatrixXd &V) {
+  CAST_DATA(_igl_viewer_data)->set_vertices(V);
 }
 void ViewerProxy::Data::set_normals(const Eigen::MatrixXd &N) {
   CAST_DATA(_igl_viewer_data)->set_normals(N);
@@ -90,6 +92,26 @@ void ViewerProxy::Data::set_uv(const Eigen::MatrixXd &UV) {
   CAST_DATA(_igl_viewer_data)->set_uv(UV);
 }
 
+void ViewerProxy::Data::set_uv(const Eigen::MatrixXd &UV,
+                               const Eigen::MatrixXi &FUV) {
+  CAST_DATA(_igl_viewer_data)->set_uv(UV, FUV);
+}
+
+void ViewerProxy::Data::set_texture(
+    const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &R,
+    const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &G,
+    const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &B) {
+  CAST_DATA(_igl_viewer_data)->set_texture(R, G, B);
+}
+
+void ViewerProxy::Data::set_texture(
+    const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &R,
+    const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &G,
+    const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &B,
+    const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> &A) {
+  CAST_DATA(_igl_viewer_data)->set_texture(R, G, B, A);
+}
+
 void ViewerProxy::Data::set_visible(bool visible, int core_id) {
   CAST_DATA(_igl_viewer_data)->set_visible(visible, core_id);
 }
@@ -100,7 +122,10 @@ ViewerProxy::Core::Core(void *igl_viewer_core)
       viewport(CAST_CORE(igl_viewer_core)->viewport),
       proj(CAST_CORE(igl_viewer_core)->proj),
       view(CAST_CORE(igl_viewer_core)->view),
-      id(CAST_CORE(igl_viewer_core)->id) {}
+      id(CAST_CORE(igl_viewer_core)->id),
+      background_color(CAST_CORE(igl_viewer_core)->background_color),
+      is_animating(CAST_CORE(igl_viewer_core)->is_animating),
+      animation_max_fps(CAST_CORE(igl_viewer_core)->animation_max_fps) {}
 
 void ViewerProxy::Core::align_camera_center(const Eigen::MatrixXd &V,
                                             const Eigen::MatrixXi &F) {
