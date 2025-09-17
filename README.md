@@ -1,13 +1,174 @@
 # Shape Modeling and Geometry Processing - Course Assignments 2025
 
-## Student data
+<br>
 
-Name: 'Your real name'  
-Legi-Nr: 'Your legi number'
+- can use STL & Eigen but No Non-standard dependencies
 
-Email: 'Your email address'
+```
+- Python → needs interpreter (python file.py)
+- C++/CMake → produces a standalone binary (run with ./program)
+- ./ → ensures you’re running the binary from the current directory, not from system paths
+```
 
-Carefully follow the instructions below to setup your assignment repository.
+- Use command line/GUI parameters (e.g. to change a mesh). Don’t hardcode & recompile to change it
+
+<br>
+
+```
+gp2025-Assignments/
+├── assignment1/             
+│   └── src/
+│       └── main.cpp
+├── assignment2/             
+├── assignment3/            
+├── build/                    # ← 
+│   ├── assignment1/         
+│   │   └── CMakeFiles/
+│   ├── assignment2/
+│   ├── assignment3/
+│   ├── lib/                  # glad, glfw, stb, imgui
+│   ├── _deps/                # CMake - Eigen, stb, imgui…
+│   ├── Makefile              # Makefile
+│   └── assignment1          
+├── CMakeLists.txt           
+└── README.md         
+```
+
+## Get Started
+
+
+**First time get pull from <https://github.com/eth-igl/gp2025-Assignments.git>**
+
+```
+cd ~
+rm -rf gp2025-Assignments
+
+git clone https://github.com/yiruyang2025/gp2025-Assignments.git # ⬅️origin
+cd gp2025-Assignments
+
+git remote add base https://github.com/eth-igl/gp2025-Assignments.git # ⬅️base
+git remote -v
+git pull base main --allow-unrelated-histories
+```
+
+<br>
+
+```
+cd gp2025-Assignments
+mkdir build
+cd build
+```
+
+<br>
+
+- Compile in Debug mode to get more info on errors, compile in Release mode for better speed. This can make a huge difference for interactive problems that should run in real-time (e.g., assignment 5)
+
+```
+# cmake -DCMAKE_BUILD_TYPE=Release ..
+```
+
+```
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ..
+
+make -j4 assignment1  # 4 CPU threads in parallel to speed up compilation
+./assignment1 ../data/cow.obj
+```
+
+-- //  Editing your `assignmentX/src/main.cpp` files  \\ --
+
+```
+make -j4 assignmentX
+./assignmentX <args>
+```
+
+<br>
+
+## -Manage your repository locally
+
+
+**Daily version management**
+
+```
+git pull base main
+git add .
+git commit -m "date"
+
+git push origin main
+```
+
+**Manage the conflict**
+
+```
+git pull base main
+```
+
+  - if below
+
+```
+<<<<<<< HEAD
+This is your version
+=======
+This is the teacher's version
+>>>>>>> base/main
+```
+
+  - then
+```
+git add XXX.py / md / tsx / xx
+
+git commit -m "Resolve merge conflict in XXX.py"
+git push origin main
+```
+
+**recall your merge**
+
+```
+git merge --abort
+```
+
+<br>
+
+
+## Git Command Flow
+
+<br>
+
+  - git pull = git "fetch + merge"
+
+```
+[ GitHub Remote Repo (origin/base) ]
+              │
+              ▼
+   git clone <url>
+   → Copy the remote repository to your local machine
+              │
+              ▼
+   git fetch <remote>
+   → Download new commits from remote (no merge yet)
+              │
+              ├── git merge <remote>/<branch>
+              │       → Combine fetched commits into your local branch
+              │
+              └── git pull <remote> <branch>
+                      → Shortcut for "fetch + merge" in one step
+              │
+              ▼
+   [ Local Repo (your working copy) ]
+              │
+              ├── git add <files>
+              │       → Stage changes you made locally
+              │
+              ├── git commit -m "message"
+              │       → Save staged changes as a commit
+              │
+              ▼
+   git push origin <branch>
+   → Upload your commits to your GitHub repository (origin)
+```
+
+
+<br>
 
 ## General Rules and Instructions
 
@@ -31,6 +192,11 @@ or with MacPorts on macOS:
 ```
 sudo port install cmake.
 ```
+📍 or
+```
+brew install cmake git
+```
+
 On Windows, please refer to [Building Each Assignment (on Windows)](#building-each-assignment-on-windows) for instructions on how to build the assignments.
 
 ### Cloning the Assignment Repository
@@ -78,7 +244,7 @@ In the assignment repository, you will find the different assignment directories
 
 Here are the instructions to build with command line tools:
 
-#### Option 1: same build directory for all assignments
+#### 📍 Option 1: same build directory for all assignments
 
 This is the recommended way to build the assignments as it can cache the compilation of shared libraries and decrease compilation time.
 

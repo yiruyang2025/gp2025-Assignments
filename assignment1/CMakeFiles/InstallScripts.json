@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/yangyiru/gp2025-Assignments/assignment1/cmake_install.cmake",
+		"/Users/yangyiru/gp2025-Assignments/assignment1/_deps/libigl-build/cmake_install.cmake",
+		"/Users/yangyiru/gp2025-Assignments/assignment1/_deps/glad-build/cmake_install.cmake",
+		"/Users/yangyiru/gp2025-Assignments/assignment1/_deps/glfw-build/cmake_install.cmake",
+		"/Users/yangyiru/gp2025-Assignments/assignment1/_deps/glfw-build/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

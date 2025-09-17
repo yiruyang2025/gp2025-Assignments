@@ -1,0 +1,3 @@
+/Users/yangyiru/gp2025-Assignments/assignment1/_deps/libigl-subbuild/CMakeFiles/libigl-populate.dir
+/Users/yangyiru/gp2025-Assignments/assignment1/_deps/libigl-subbuild/CMakeFiles/edit_cache.dir
+/Users/yangyiru/gp2025-Assignments/assignment1/_deps/libigl-subbuild/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libviewer_proxy.a CMakeFiles/viewer_proxy.dir/viewer_proxy/viewer_proxy.cpp.o
+/usr/bin/ranlib libviewer_proxy.a
